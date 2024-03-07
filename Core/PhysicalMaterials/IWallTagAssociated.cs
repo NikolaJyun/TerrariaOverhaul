@@ -4,5 +4,5 @@ namespace TerrariaOverhaul.Core.PhysicalMaterials;
 
 public interface IWallTagAssociated
 {
-	public TagData WallTag { get; }
+	public ContentSet WallTag { get; }
 }

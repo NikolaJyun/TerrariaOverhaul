@@ -1,0 +1,71 @@
+// Footstep tags
+
+DirtFootsteps: {
+	Sets: [ "Dirt" ]
+	Includes.TileID: [
+		"ClayBlock"
+		"Ash"
+		"Silt"
+		"Slush"
+		"Hive"
+	]
+}
+
+StoneFootsteps: {
+	Sets: [ "Stone" ]
+	Includes.TileID: [
+		"StoneSlab"
+		"ActiveStoneBlock"
+		"SandStoneSlab"
+		"GrayBrick"
+		// Moss
+		"ArgonMoss"
+		"BlueMoss"
+		"BrownMoss"
+		"GreenMoss"
+		"KryptonMoss"
+		"LavaMoss"
+		"RedMoss"
+		"PurpleMoss"
+		"XenonMoss"
+	]
+}
+
+GrassFootsteps: {
+	Sets: [ "Grass" ]
+	Includes.TileID: [
+		"Hayblock"
+	]
+}
+
+MudFootsteps: {
+	Sets: [ "Mud" ]
+}
+
+SandFootsteps: {
+	Sets: [ "Sand" ]
+}
+
+SnowFootsteps: {
+	Sets: [ "Snow" ]
+	Includes.TileID: [
+		"SnowCloud"
+	]
+}
+
+WoodFootsteps: {
+	Sets: [ "Wood" ]
+	Includes.TileID: [
+		"WoodenSpikes"
+		"WarTable"
+		// FrameImportant
+		"Platforms"
+		"ClosedDoor"
+		"OpenDoor"
+		"Tables"
+		"Tables2"
+		"Chairs"
+		"Bookcases"
+		"Dressers"
+	]
+}

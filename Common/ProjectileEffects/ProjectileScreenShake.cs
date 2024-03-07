@@ -1,20 +1,22 @@
 ﻿using Terraria;
 using Terraria.ModLoader;
 using TerrariaOverhaul.Common.Camera;
-using TerrariaOverhaul.Common.Tags;
+using TerrariaOverhaul.Core.Tags;
 
 namespace TerrariaOverhaul.Common.ProjectileEffects;
 
 [Autoload(Side = ModSide.Client)]
 public sealed class ProjectileScreenShake : GlobalProjectile
 {
+	private static readonly ContentSet explosiveSet = "Explosive";
+
 	public ScreenShake? ScreenShake { get; set; }
 
 	public override bool InstancePerEntity => true;
 
 	public override void SetDefaults(Projectile projectile)
 	{
-		if (OverhaulProjectileTags.Explosive.Has(projectile.type)) {
+		if (explosiveSet.Has(projectile)) {
 			ScreenShake = new ScreenShake(0.8f, 1.0f) {
 				Range = 2048f,
 			};

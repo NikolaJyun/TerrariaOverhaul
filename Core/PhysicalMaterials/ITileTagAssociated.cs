@@ -4,5 +4,5 @@ namespace TerrariaOverhaul.Core.PhysicalMaterials;
 
 public interface ITileTagAssociated
 {
-	public TagData TileTag { get; }
+	public ContentSet TileTag { get; }
 }

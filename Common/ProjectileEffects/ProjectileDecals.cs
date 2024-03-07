@@ -6,7 +6,7 @@ using Terraria;
 using Terraria.GameContent;
 using Terraria.ModLoader;
 using TerrariaOverhaul.Common.Decals;
-using TerrariaOverhaul.Common.Tags;
+using TerrariaOverhaul.Core.Tags;
 using TerrariaOverhaul.Utilities;
 
 namespace TerrariaOverhaul.Common.ProjectileEffects;
@@ -22,6 +22,11 @@ public sealed class ProjectileDecals : GlobalProjectile
 		public DecalStyle DecalStyle { get; init; } = DecalStyle.Default;
 		public Asset<Texture2D>? Texture { get; init; }
 	}
+
+	private static readonly ContentSet frostSet = "Frost";
+	private static readonly ContentSet bulletSet = "Bullet";
+	private static readonly ContentSet explosiveSet = "Explosive";
+	private static readonly ContentSet incendiarySet = "Incendiary";
 
 	public static Data? IcePreset { get; private set; }
 	public static Data? BulletPreset { get; private set; }
@@ -61,19 +66,19 @@ public sealed class ProjectileDecals : GlobalProjectile
 
 	public override void SetDefaults(Projectile projectile)
 	{
-		if (OverhaulProjectileTags.Bullet.Has(projectile.type)) {
+		if (bulletSet.Has(projectile)) {
 			OnTileCollision = BulletPreset;
 		}
 
-		if (OverhaulProjectileTags.Ice.Has(projectile.type)) {
+		if (frostSet.Has(projectile)) {
 			OnTileCollision = IcePreset;
 		}
 
-		if (OverhaulProjectileTags.Explosive.Has(projectile.type)) {
+		if (explosiveSet.Has(projectile)) {
 			OnDestroy = ExplosionPreset;
 		}
 
-		if (OverhaulProjectileTags.Incendiary.Has(projectile.type)) {
+		if (incendiarySet.Has(projectile)) {
 			OnTick = IncendiaryPreset! with { Color = Color.White.WithAlpha(3) };
 			OnDestroy = IncendiaryPreset;
 		}

@@ -2,7 +2,7 @@
 using Terraria.Audio;
 using Terraria.ModLoader;
 using TerrariaOverhaul.Common.Hooks.Items;
-using TerrariaOverhaul.Common.Tags;
+using TerrariaOverhaul.Core.Tags;
 
 namespace TerrariaOverhaul.Common.Melee;
 
@@ -13,9 +13,11 @@ public sealed class ItemHitSoundReplacements : GlobalItem, IModifyItemNPCHitSoun
 		PitchVariance = 0.1f,
 	};
 
+	private static readonly ContentSet woodenSet = "Wooden";
+
 	void IModifyItemNPCHitSound.ModifyItemNPCHitSound(Item item, Player player, NPC target, ref SoundStyle? customHitSound, ref bool playNPCHitSound)
 	{
-		if (OverhaulItemTags.Wooden.Has(item.netID)) {
+		if (woodenSet.Has(item)) {
 			customHitSound = WoodenHitSound;
 		}
 	}

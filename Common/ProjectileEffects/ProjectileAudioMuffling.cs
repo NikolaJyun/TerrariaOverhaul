@@ -1,8 +1,8 @@
 ﻿using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ModLoader;
-using TerrariaOverhaul.Common.Tags;
 using TerrariaOverhaul.Core.AudioEffects;
+using TerrariaOverhaul.Core.Tags;
 using TerrariaOverhaul.Core.Time;
 using TerrariaOverhaul.Utilities;
 
@@ -14,6 +14,8 @@ namespace TerrariaOverhaul.Common.ProjectileEffects;
 [Autoload(Side = ModSide.Client)]
 public sealed class ProjectileAudioMuffling : GlobalProjectile
 {
+	private static readonly ContentSet explosiveSet = "Explosive";
+
 	public bool Enabled { get; set; }
 	public float Range { get; set; } = 512f;
 	public float MaxTimeInSeconds { get; set; } = 3f;
@@ -22,7 +24,7 @@ public sealed class ProjectileAudioMuffling : GlobalProjectile
 
 	public override void SetDefaults(Projectile projectile)
 	{
-		if (OverhaulProjectileTags.Explosive.Has(projectile.type)) {
+		if (explosiveSet.Has(projectile)) {
 			Enabled = true;
 			Range = 512f;
 			MaxTimeInSeconds = 5f;

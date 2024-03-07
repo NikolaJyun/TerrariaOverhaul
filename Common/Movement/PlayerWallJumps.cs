@@ -6,8 +6,8 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using TerrariaOverhaul.Common.Dodgerolls;
 using TerrariaOverhaul.Common.Footsteps;
-using TerrariaOverhaul.Common.Tags;
 using TerrariaOverhaul.Core.Configuration;
+using TerrariaOverhaul.Core.Tags;
 using TerrariaOverhaul.Core.Time;
 using TerrariaOverhaul.Utilities;
 
@@ -18,6 +18,8 @@ public class PlayerWallJumps : ModPlayer
 {
 	public static readonly ConfigEntry<bool> EnableWallJumping = new(ConfigSide.Both, "PlayerMovement", nameof(EnableWallJumping), () => true);
 	public static readonly ConfigEntry<bool> EnableWallFlips = new(ConfigSide.Both, "PlayerMovement", nameof(EnableWallFlips), () => true);
+
+	private static readonly ContentSet ninjaGearSet = "NinjaGear";
 
 	public const float MinSpeedForWallRoll = 3f;
 
@@ -43,7 +45,7 @@ public class PlayerWallJumps : ModPlayer
 
 		// Ninja jumps are executed by looking away from a wall while touching it and pressing movement towards it.
 		// They do not trigger dodgerolls.
-		bool ninjaJump = Player.controlUp && Player.EnumerateAccessories().Any(tuple => OverhaulItemTags.NinjaGear.Has(tuple.item.type));
+		bool ninjaJump = Player.controlUp && Player.EnumerateAccessories().Any(tuple => ninjaGearSet.Has(tuple.item));
 
 		if (!(ninjaJump ? EnableWallJumping : EnableWallFlips)) {
 			return;

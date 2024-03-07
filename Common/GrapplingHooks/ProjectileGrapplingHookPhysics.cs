@@ -8,9 +8,9 @@ using MonoMod.Cil;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using TerrariaOverhaul.Common.Tags;
 using TerrariaOverhaul.Core.Configuration;
 using TerrariaOverhaul.Core.Debugging;
+using TerrariaOverhaul.Core.Tags;
 using TerrariaOverhaul.Utilities;
 
 namespace TerrariaOverhaul.Common.GrapplingHooks;
@@ -22,6 +22,7 @@ public class ProjectileGrapplingHookPhysics : GlobalProjectile
 
 	public const int GrapplingHookAIStyle = ProjAIStyleID.Hook;
 
+	private static readonly ContentSet noGrapplingHookSwingingSet = "NoGrapplingHookSwinging";
 	private static HashSet<int>? grapplingTypesWarnedAbout;
 	private static Dictionary<int, float>? vanillaHookRangesInPixels;
 
@@ -254,7 +255,7 @@ public class ProjectileGrapplingHookPhysics : GlobalProjectile
 			return false;
 		}
 
-		if (proj.aiStyle != GrapplingHookAIStyle || !GetHooked(proj) || OverhaulProjectileTags.NoGrapplingHookSwinging.Has(proj.type)) {
+		if (proj.aiStyle != GrapplingHookAIStyle || !GetHooked(proj) || noGrapplingHookSwingingSet.Has(proj)) {
 			return false;
 		}
 

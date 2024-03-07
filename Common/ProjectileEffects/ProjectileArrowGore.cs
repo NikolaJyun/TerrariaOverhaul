@@ -3,17 +3,19 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 using TerrariaOverhaul.Common.BloodAndGore;
-using TerrariaOverhaul.Common.Tags;
 using TerrariaOverhaul.Content.Gores;
+using TerrariaOverhaul.Core.Tags;
 using TerrariaOverhaul.Utilities;
 
 namespace TerrariaOverhaul.Common.ProjectileEffects;
 
 public sealed class ProjectileArrowGore : GlobalProjectile
 {
+	private static readonly ContentSet woodenArrowSet = "WoodenArrow";
+
 	public override bool AppliesToEntity(Projectile entity, bool lateInstantiation)
 	{
-		return OverhaulProjectileTags.WoodenArrow.Has(entity.type);
+		return woodenArrowSet.Has(entity);
 	}
 
 	public override void OnKill(Projectile projectile, int timeLeft)

@@ -7,6 +7,8 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using TerrariaOverhaul.Core.Tags;
 using TerrariaOverhaul.Utilities;
+using EnvironmentTag = TerrariaOverhaul.Core.Tags.Tag<TerrariaOverhaul.Common.Ambience.EnvironmentSystem>;
+using EnvironmentTags = TerrariaOverhaul.Core.Tags.Tags<TerrariaOverhaul.Common.Ambience.EnvironmentSystem>;
 
 namespace TerrariaOverhaul.Common.Ambience;
 
@@ -17,9 +19,9 @@ public sealed partial class EnvironmentSystem : ModSystem
 {
 	public delegate float SignalUpdater(in EnvironmentContext context);
 
-	private static readonly Dictionary<Tag, float> environmentSignals = new();
-	private static readonly List<(Tag tag, SignalUpdater function)> signalUpdaters = new();
-	private static readonly List<Tag> biomeTagsById = new() {
+	private static readonly Dictionary<EnvironmentTag, float> environmentSignals = new();
+	private static readonly List<(EnvironmentTag tag, SignalUpdater function)> signalUpdaters = new();
+	private static readonly List<EnvironmentTag> biomeTagsById = new(EnvironmentTags.TagsFromStrings(new[] {
 		default, // zone1
 		default, //"Dungeon",
 		default, //"Corruption",
@@ -55,7 +57,7 @@ public sealed partial class EnvironmentSystem : ModSystem
 		"GemCave",
 		"LihzhardTemple",
 		"Graveyard",
-	};
+	}));
 
 	private static int[]? tileCounts;
 
@@ -70,17 +72,18 @@ public sealed partial class EnvironmentSystem : ModSystem
 				}
 
 				var function = method.CreateDelegate<SignalUpdater>();
+				var tag = EnvironmentTags.TagFromString(attribute.TagNameOverride ?? method.Name);
 
-				RegisterSignalUpdater(attribute.TagNameOverride ?? method.Name, function);
+				RegisterSignalUpdater(tag, function);
 			}
 		}
 
 		// Biomes
-		RegisterSignalUpdater("Purity", static (in EnvironmentContext _) => Main.LocalPlayer.ZonePurity ? 1f : 0f);
-		RegisterSignalUpdater("Forest", static (in EnvironmentContext _) => Main.LocalPlayer.ZoneForest ? 1f : 0f);
-		RegisterSignalUpdater("NormalSpace", static (in EnvironmentContext _) => Main.LocalPlayer.ZoneNormalSpace ? 1f : 0f);
-		RegisterSignalUpdater("NormalCaverns", static (in EnvironmentContext _) => Main.LocalPlayer.ZoneNormalCaverns ? 1f : 0f);
-		RegisterSignalUpdater("NormalUnderground", static (in EnvironmentContext _) => Main.LocalPlayer.ZoneNormalUnderground ? 1f : 0f);
+		RegisterSignalUpdater(EnvironmentTags.TagFromString("Purity"), static (in EnvironmentContext _) => Main.LocalPlayer.ZonePurity ? 1f : 0f);
+		RegisterSignalUpdater(EnvironmentTags.TagFromString("Forest"), static (in EnvironmentContext _) => Main.LocalPlayer.ZoneForest ? 1f : 0f);
+		RegisterSignalUpdater(EnvironmentTags.TagFromString("NormalSpace"), static (in EnvironmentContext _) => Main.LocalPlayer.ZoneNormalSpace ? 1f : 0f);
+		RegisterSignalUpdater(EnvironmentTags.TagFromString("NormalCaverns"), static (in EnvironmentContext _) => Main.LocalPlayer.ZoneNormalCaverns ? 1f : 0f);
+		RegisterSignalUpdater(EnvironmentTags.TagFromString("NormalUnderground"), static (in EnvironmentContext _) => Main.LocalPlayer.ZoneNormalUnderground ? 1f : 0f);
 	}
 
 	public override void TileCountsAvailable(ReadOnlySpan<int> tileCountsSpan)
@@ -125,30 +128,30 @@ public sealed partial class EnvironmentSystem : ModSystem
 			for (int j = 0; j < 8 && globalId < biomeTagsById.Count; j++, globalId++) {
 				var tag = biomeTagsById[globalId];
 
-				if (tag != default) {
+				if (tag != default(EnvironmentTag)) {
 					SetSignal(tag, bitsByte[j] ? 1f : 0f);
 				}
 			}
 		}
 	}
 
-	public static void RegisterSignalUpdater(Tag tag, SignalUpdater function)
+	public static void RegisterSignalUpdater(EnvironmentTag tag, SignalUpdater function)
 		=> signalUpdaters.Add((tag, function));
 
 
-	public static bool TryGetSignal(Tag tag, out float signal)
+	public static bool TryGetSignal(EnvironmentTag tag, out float signal)
 	{
 		return environmentSignals.TryGetValue(tag, out signal);
 	}
 
-	public static float GetSignal(Tag tag)
+	public static float GetSignal(EnvironmentTag tag)
 	{
 		TryGetSignal(tag, out float signal);
 
 		return signal;
 	}
 
-	public static void SetSignal(Tag tag, float value)
+	public static void SetSignal(EnvironmentTag tag, float value)
 	{
 		if (tag == default) {
 			return;

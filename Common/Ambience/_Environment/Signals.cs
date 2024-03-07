@@ -3,6 +3,7 @@ using System.Linq;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using TerrariaOverhaul.Core.Tags;
+using EnvironmentTag = TerrariaOverhaul.Core.Tags.Tag<TerrariaOverhaul.Common.Ambience.EnvironmentSystem>;
 
 namespace TerrariaOverhaul.Common.Ambience;
 
@@ -24,9 +25,9 @@ public enum SignalModifiers
 public struct CalculatedSignal
 {
 	[JsonRequired] public SignalOperation Operation;
-	[JsonRequired] public Tag[] Inputs;
+	[JsonRequired] public EnvironmentTag[] Inputs;
 
-	public Tag Output;
+	public EnvironmentTag Output;
 	public SignalModifiers Modifiers;
 	public float Value;
 }
@@ -54,7 +55,7 @@ public sealed class CalculatedSignalArrayJsonConverter : JsonConverter
 
 		foreach (var property in properties) {
 			result[i++] = property.Value.ToObject<CalculatedSignal>(serializer) with {
-				Output = (Tag)property.Name
+				Output = Tags<EnvironmentSystem>.TagFromString(property.Name)
 			};
 		}
 

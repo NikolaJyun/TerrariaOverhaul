@@ -13,9 +13,9 @@ using TerrariaOverhaul.Common.AudioEffects;
 using TerrariaOverhaul.Core.AudioEffects;
 using TerrariaOverhaul.Core.Configuration;
 using TerrariaOverhaul.Core.Debugging;
-using TerrariaOverhaul.Core.Tags;
 using TerrariaOverhaul.Core.Time;
 using TerrariaOverhaul.Utilities;
+using EnvironmentTag = TerrariaOverhaul.Core.Tags.Tag<TerrariaOverhaul.Common.Ambience.EnvironmentSystem>;
 
 namespace TerrariaOverhaul.Common.Ambience;
 
@@ -25,7 +25,7 @@ public sealed class AmbienceSystem : ModSystem
 	public static readonly ConfigEntry<bool> EnableAmbientSounds = new(ConfigSide.ClientOnly, "Ambience", nameof(EnableAmbientSounds), () => true);
 
 	private static readonly List<AmbienceTrack> Tracks = new();
-	private static readonly Tag VolumeTag = "Volume";
+	private static readonly EnvironmentTag VolumeTag = "Volume";
 
 	public override void Load()
 	{

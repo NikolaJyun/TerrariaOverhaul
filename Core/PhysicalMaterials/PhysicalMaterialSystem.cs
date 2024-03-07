@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace TerrariaOverhaul.Core.PhysicalMaterials;
@@ -22,7 +23,7 @@ public sealed class PhysicalMaterialSystem : ModSystem
 	public static bool TryGetTilePhysicalMaterial(int type, out PhysicalMaterial result)
 	{
 		foreach (var material in PhysicalMaterialsInternal) {
-			if (material is ITileTagAssociated tagAssociated && tagAssociated.TileTag.Has(type)) {
+			if (material is ITileTagAssociated tagAssociated && tagAssociated.TileTag.Has<TileID>(type)) {
 				result = material;
 
 				return true;
@@ -37,7 +38,7 @@ public sealed class PhysicalMaterialSystem : ModSystem
 	public static bool TryGetWallPhysicalMaterial(int type, out PhysicalMaterial result)
 	{
 		foreach (var material in PhysicalMaterialsInternal) {
-			if (material is IWallTagAssociated tagAssociated && tagAssociated.WallTag.Has(type)) {
+			if (material is IWallTagAssociated tagAssociated && tagAssociated.WallTag.Has<WallID>(type)) {
 				result = material;
 
 				return true;

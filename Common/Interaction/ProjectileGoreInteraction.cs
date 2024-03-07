@@ -3,7 +3,7 @@ using Terraria;
 using Terraria.DataStructures;
 using Terraria.ModLoader;
 using TerrariaOverhaul.Common.BloodAndGore;
-using TerrariaOverhaul.Common.Tags;
+using TerrariaOverhaul.Core.Tags;
 
 namespace TerrariaOverhaul.Common.Interaction;
 
@@ -16,6 +16,9 @@ public class ProjectileGoreInteraction : GlobalProjectile
 		Incendiary,
 		Extinguisher
 	}
+
+	private static readonly ContentSet incendiarySet = "Incendiary";
+	private static readonly ContentSet extinguisherSet = "Extinguisher";
 
 	private bool dontHitGore;
 
@@ -31,9 +34,9 @@ public class ProjectileGoreInteraction : GlobalProjectile
 	{
 		base.OnSpawn(projectile, source);
 
-		if (OverhaulProjectileTags.Incendiary.Has(projectile.type)) {
+		if (incendiarySet.Has(projectile)) {
 			FireInteraction = FireProperties.Incendiary;
-		} else if (OverhaulProjectileTags.Extinguisher.Has(projectile.type)) {
+		} else if (extinguisherSet.Has(projectile)) {
 			FireInteraction = FireProperties.Extinguisher;
 		}
 	}

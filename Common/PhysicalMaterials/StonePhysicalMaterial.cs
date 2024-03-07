@@ -1,6 +1,5 @@
 ﻿using Terraria.Audio;
 using TerrariaOverhaul.Common.Footsteps;
-using TerrariaOverhaul.Common.Tags;
 using TerrariaOverhaul.Core.PhysicalMaterials;
 using TerrariaOverhaul.Core.Tags;
 
@@ -8,7 +7,7 @@ namespace TerrariaOverhaul.Common.PhysicalMaterials;
 
 public sealed class StonePhysicalMaterial : PhysicalMaterial, ITileTagAssociated, IFootstepSoundProvider
 {
-	public TagData TileTag { get; } = OverhaulTileTags.Stone;
+	public ContentSet TileTag { get; } = "StoneFootsteps";
 	// Footsteps
 	public SoundStyle? FootstepSound { get; } = new($"{nameof(TerrariaOverhaul)}/Assets/Sounds/Footsteps/Stone/Step", 8) {
 		Volume = 0.5f,

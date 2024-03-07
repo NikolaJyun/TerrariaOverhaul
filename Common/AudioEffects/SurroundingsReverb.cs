@@ -1,11 +1,10 @@
-﻿using System;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ModLoader;
 using TerrariaOverhaul.Common.Camera;
-using TerrariaOverhaul.Common.Tags;
 using TerrariaOverhaul.Core.AudioEffects;
 using TerrariaOverhaul.Core.Debugging;
+using TerrariaOverhaul.Core.Tags;
 using TerrariaOverhaul.Utilities;
 
 namespace TerrariaOverhaul.Common.AudioEffects;
@@ -14,6 +13,8 @@ namespace TerrariaOverhaul.Common.AudioEffects;
 public sealed class SurroundingsReverb : ModSystem
 {
 	private const int UpdateRate = 5;
+
+	private static readonly ContentSet reverbSet = "Reverb";
 
 	public static float MaxReverbIntensity => 0.725f;
 	public static float MaxReverbTileRatio => 0.1f;
@@ -59,7 +60,7 @@ public sealed class SurroundingsReverb : ModSystem
 				continue;
 			}
 
-			if (tile.TileType >= TileLoader.TileCount || !OverhaulTileTags.Reverb.Has(tile.TileType)) {
+			if (tile.TileType >= TileLoader.TileCount || !reverbSet.HasTile(tile)) {
 				continue;
 			}
 
