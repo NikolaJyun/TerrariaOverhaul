@@ -231,22 +231,22 @@ BloodAndGore: {
 }
 
 Bosses: {
-	// DisplayName: "Bosses"
-	// Description: "Overhaul implements many audiovisual reworks to make boss battles more cinematic and intimidating."
+	DisplayName: "头目"
+	Description: "全面改进实现了多项视听效果的修改，使 Boss 战更加震撼和具有威慑力。"
 
 	EnableDestroyerEffects: {
-		// DisplayName: "Enable Destroyer Effects"
-		// Description: "When enabled, The Destroyer boss will receive new audiovisual effects."
+		DisplayName: "启用毁灭者效果"
+		Description: "启用后，毁灭者 Boss 将获得新的视听效果。"
 	}
 
 	EnableDestroyerMakeover: {
-		// DisplayName: "Enable Destroyer Makeover"
-		// Description: "When enabled, The Destroyer boss will receive a new massive spritework. Affects gameplay."
+		DisplayName: "启用毁灭者改造"
+		Description: "启用后，毁灭者 Boss 将获得全新的外观，这将影响游戏玩法。"
 	}
 
 	EnableEaterOfWorldsEffects: {
-		// DisplayName: "Enable Eater Of Worlds Effects"
-		// Description: "When enabled, The Eater of Worlds boss will receive new audiovisual effects."
+		DisplayName: "启用世界吞噬怪效果"
+		Description: "启用后，世界吞噬怪 Boss 将获得新的视听效果。"
 	}
 }
 
@@ -288,8 +288,8 @@ Enemies: {
 	}
 
 	EnableNormalEnemyEffects: {
-		// DisplayName: "Enable Normal Enemy Effects"
-		// Description: ""
+		DisplayName: "启用普通敌人效果"
+		Description: ""
 	}
 }
 
@@ -644,8 +644,8 @@ Visuals: {
 	}
 
 	EnableEnemyFlinchingEffects: {
-		// DisplayName: "Enable Enemy Flinching Effects"
-		// Description: "Toggles enemy sprites getting slightly shaken when hurt."
+		DisplayName: "启用敌人受伤抖动效果"
+		Description: "切换是否让敌人在受伤时轻微抖动。"
 	}
 
 	EnableEnemyTiltingEffects: {
